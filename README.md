@@ -21,7 +21,7 @@ First, install JSHint if you have not done so already:
 
 Now install the bundle:
 
-1. [Download the .zip file](https://github.com/natesilva/jshint-external.tmbundle/archive/master.zip).
+1. [Download the latest release .zip file](https://github.com/natesilva/jshint-external.tmbundle/releases).
 2. Extract it.
 3. Rename the extracted folder to `jshint-external.tmbundle`.
 4. Double-click to install it in TextMate.
