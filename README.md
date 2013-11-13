@@ -2,7 +2,7 @@
 
 Integrates the [JSHint](http://www.jshint.com/) JavaScript validator with [TextMate 2](https://github.com/textmate/textmate).
 
-![Screenshot](https://github.com/natesilva/jshint-external/raw/master/jshint-external-looks-good.png)
+![Screenshot](https://raw.github.com/natesilva/jshint-external.tmbundle/master/jshint-external-looks-good.png)
 
 ## Features
 
