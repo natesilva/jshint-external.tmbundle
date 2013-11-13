@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>angr@angrfvyin.pbz</string>
+	<key>contactName</key>
+	<string>Nate Silva</string>
+	<key>description</key>
+	<string>Run JSHint on demand and when a JavaScript file is saved.</string>
+	<key>name</key>
+	<string>JSHint (External)</string>
+	<key>uuid</key>
+	<string>55811194-29A0-4B30-947C-C7A691895273</string>
+</dict>
+</plist>

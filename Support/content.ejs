@@ -1,0 +1,71 @@
+<% if (errorCount || warningCount) { %>
+    <div class="panel panel-default">
+<% } else { %>
+    <div class="panel panel-success">
+<% } %>
+    <div class="panel-heading">
+        <h4>
+        Validation results for <a href="<%= fileUrl %>"><tt><b><%= targetFilename %></b></tt></a>
+        <div class="small"><%= timestamp %></div>
+        </h4>
+    </div>
+    <div class="panel-body">
+        <% if (jshintrcValid) { %>
+            <p class="small">Used settings from
+                <a href="txmt://open?url=file://<%= jshintrc %>"><tt><%= jshintrc %></tt></a>
+            </p>
+        <% } else if (jshintrc && !jshintrcValid) { %>
+            <p class="small text-danger">Used generic default settings because
+                <a href="txmt://open?url=file://<%= jshintrc %>"><tt><%= jshintrc %></tt></a>
+                was not valid JSON.
+            </p>
+        <% } else { %>
+            <p class="small">No .jshintrc found. Used default settings.</p>
+        <% } %>
+        <% if (errorCount) { %>
+            <% if (errorCount === 1) { %>
+                <span class="label label-danger">1 error</span>
+            <% } else { %>
+                <span class="label label-danger"><%= errorCount %> errors</span>
+            <% } %>
+        <% } %>
+
+        <% if (warningCount) { %>
+            <% if (warningCount === 1) { %>
+                <span class="label label-warning">1 warning</span>
+            <% } else { %>
+                <span class="label label-warning"><%= warningCount %> warnings</span>
+            <% } %>
+        <% } %>
+
+        <% if (!errorCount && !warningCount) { %>
+            <span class="label label-success">No errors or warnings</span>
+        <% } %>
+    </div>
+
+    <ul class="list-group">
+        <% if (!errorCount && !warningCount) { %>
+            <li class="list-group-item">
+                <span class="glyphicon glyphicon-ok text-success" style="margin-right:10px;"></span>
+                Looks good!
+            </li>
+        <% } %>
+
+        <%
+            for (var index = 0, len = issues.length; index !== len; ++index) {
+                var issue = issues[index];
+        %>
+            <li class="list-group-item">
+                <% if (issue.severity === 'E') { %>
+                    <span class="glyphicon glyphicon-remove text-danger" style="margin-right:10px;"></span>
+                <% } else if (issue.severity === 'W') { %>
+                    <span class="glyphicon glyphicon-warning-sign text-warning" style="margin-right:10px;"></span>
+                <% } else if (issue.severity === 'I') { %>
+                    <span class="glyphicon glyphicon-comment text-info" style="margin-right:10px;"></span>
+                <% } %>
+                <a href="<%= issue.url %>">at line <%= issue.line %> position <%= issue.char %></a>
+                <div><tt><%= issue.reason %></tt></div>
+            </li>
+        <% } %>
+    </ul>
+</div>
