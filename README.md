@@ -38,3 +38,12 @@ In most cases no configuration is required. However, in some cases you may wish 
 * **Use a project-specific JSHint configuration:**
     * **For Node.js:** Add a key called `jsonHintConfig` to the `package.json` file. This key should contain the filename of your JSHint configuration file ([JSHint config syntax](http://www.jshint.com/docs/)).
     * **For any JavaScript project:** Create a `.jshintrc` file ([syntax](http://www.jshint.com/docs/)). Place it in your source directory or any directory above it.
+
+## Uninstall
+
+1. Quit TextMate.
+2. Open `~/Library/Application Support/Avian/Pristine Copy/Bundles`.
+3. Trash `jshint-external.tmbundle`.
+4. Open `~/Library/Application Support/Avian/Bundles`.
+5. If there is a file called `JSHint (External).tmbundle`, trash it.
+6. You may need to clear TextMate’s cache by trashing `~/Library/Caches/com.macromates.TextMate.preview`.
