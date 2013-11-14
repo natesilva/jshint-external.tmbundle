@@ -36,5 +36,5 @@ In most cases no configuration is required. However, in some cases you may wish 
     2. Navigate to *JSHint (External)* > *Menu Actions* > *Save & Validate with JSHint*.
     3. In the drawer that appears, delete the “Key Equivalent” of `⌘S`.
 * **Use a project-specific JSHint configuration:**
-    * In a Node.js project, add a key called `jsonHintConfig` to the `package.json` file. This key should contain the filename of your JSHint configuration file ([same syntax as `.jshintrc`](http://www.jshint.com/docs/)).
-    * If you are not using Node.js, this still works. Create a file called `package.json` in your source directory or any directory above it. In this file, add a key called `jsonHintConfig` which contains the filename of your JSHint configuration file.
+    * **For Node.js:** Add a key called `jsonHintConfig` to the `package.json` file. This key should contain the filename of your JSHint configuration file ([JSHint config syntax](http://www.jshint.com/docs/)).
+    * **For any JavaScript project:** Create a `.jshintrc` file ([syntax](http://www.jshint.com/docs/)). Place it in your source directory or any directory above it.
