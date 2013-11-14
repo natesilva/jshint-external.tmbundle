@@ -21,6 +21,10 @@
             </p>
         <% } else { %>
             <p class="small">No .jshintrc found. Used default settings.</p>
+            <p class="small">See
+                <a href="http://www.jshint.com/docs/">http://www.jshint.com/docs/</a>
+                for .jshintrc customization instructions.
+            </p>
         <% } %>
         <% if (errorCount) { %>
             <% if (errorCount === 1) { %>
@@ -68,4 +72,13 @@
             </li>
         <% } %>
     </ul>
+</div>
+
+<div class="small text-center">
+    <b>
+    <a href="https://github.com/natesilva/jshint-external.tmbundle"
+            >
+        jshint-external TextMate Bundle Home Page
+    </a>
+    </b>
 </div>

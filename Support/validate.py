@@ -96,6 +96,27 @@ def find_jshintrc(start_dir):
     return None
 
 
+def show_error_message(message):
+    context = {
+        'message': message,
+        'timestamp': time.strftime('%c')
+    }
+
+    my_dir = os.path.abspath(os.path.dirname(__file__))
+
+    error_ejs_path = os.path.join(my_dir, 'error.ejs')
+    error_ejs = open(error_ejs_path, 'r').read()
+
+    template_path = os.path.join(my_dir, 'template.html')
+    template = open(template_path, 'r').read()
+    template = template.replace('{{ TM_BUNDLE_SUPPORT }}',
+        os.environ['TM_BUNDLE_SUPPORT'])
+    template = template.replace('{{ EJS_TEMPLATE }}', json.dumps(error_ejs))
+    template = template.replace('{{ CONTEXT }}', json.dumps(context))
+
+    print(template)
+
+
 def validate(quiet=False):
     # locate the .jshintrc to use
     jshintrc = find_jshintrc(os.environ.get('TM_DIRECTORY', None))
@@ -119,11 +140,11 @@ def validate(quiet=False):
         msg = [
             'Could not run jshint: %s' % e,
             '',
-            'Ensure jshint is installed and in the PATH,',
-            'or set TM_JSHINT to point to it.'
+            'Ensure jshint is installed and in the PATH, or set TM_JSHINT ' +
+            'to point to it.'
         ];
-        print('<pre>' + '\n'.join(msg) + '</pre>')
-        sys.exit(1)
+        show_error_message('<br>'.join(msg))
+        sys.exit()
 
     # parse the results
     tree = ET.parse(jshint.stdout)
@@ -191,7 +212,8 @@ def validate(quiet=False):
 
     template_path = os.path.join(my_dir, 'template.html')
     template = open(template_path, 'r').read()
-    template = template.replace('{{ TM_BUNDLE_SUPPORT }}', os.environ['TM_BUNDLE_SUPPORT'])
+    template = template.replace('{{ TM_BUNDLE_SUPPORT }}',
+        os.environ['TM_BUNDLE_SUPPORT'])
     template = template.replace('{{ EJS_TEMPLATE }}', json.dumps(content_ejs))
     template = template.replace('{{ CONTEXT }}', json.dumps(context))
 
