@@ -13,5 +13,5 @@ Zepto(document).ready(function($) {
 
   // render the template and inject it into the page
   var html = new EJS({text: ejsTemplate}).render(context);
-  $('#content').html(html);
+  $('#content').html(html).removeClass('hidden');
 });

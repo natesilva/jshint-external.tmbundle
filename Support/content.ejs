@@ -46,7 +46,7 @@
     <ul class="list-group">
         <% if (!errorCount && !warningCount) { %>
             <li class="list-group-item">
-                <span class="glyphicon glyphicon-ok text-success" style="margin-right:10px;"></span>
+                <span class="symbol">&#9989;</span>
                 Looks good!
             </li>
         <% } %>
@@ -57,11 +57,11 @@
         %>
             <li class="list-group-item">
                 <% if (issue.severity === 'E') { %>
-                    <span class="glyphicon glyphicon-remove text-danger" style="margin-right:10px;"></span>
+                    <span class="symbol">&#10060;</span>
                 <% } else if (issue.severity === 'W') { %>
-                    <span class="glyphicon glyphicon-warning-sign text-warning" style="margin-right:10px;"></span>
+                    <span class="symbol">&#9888;</span>
                 <% } else if (issue.severity === 'I') { %>
-                    <span class="glyphicon glyphicon-comment text-info" style="margin-right:10px;"></span>
+                    <span class="symbol">&#8505;</span>
                 <% } %>
                 <a href="<%= issue.url %>">at line <%= issue.line %> position <%= issue.char %></a>
                 <div><tt><%= issue.reason %></tt></div>
