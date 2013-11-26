@@ -14,7 +14,7 @@ HTML=$("${TPY}" "${TM_BUNDLE_SUPPORT}/validate.py" -q)
 if [[ "${HTML}" != "" ]]; then exit_show_html "${HTML}"; fi  
 </string>
 	<key>input</key>
-	<string>document</string>
+	<string>scope</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>keyEquivalent</key>

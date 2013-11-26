@@ -13,6 +13,7 @@ License: MIT
 from __future__ import print_function
 import sys
 import os
+import re
 import time
 import json
 import subprocess
@@ -134,8 +135,8 @@ def validate(quiet=False):
         args.append('--config="%s"' % jshintrc)
     args.append('-')
     try:
-        jshint = subprocess.Popen(args, stdin=sys.stdin, stdout=subprocess.PIPE,
-            env=os.environ)
+        jshint = subprocess.Popen(args, stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE, env=os.environ)
     except OSError as e:
         msg = [
             'Could not run jshint: %s' % e,
@@ -145,6 +146,42 @@ def validate(quiet=False):
         ];
         show_error_message('<br>'.join(msg))
         sys.exit()
+
+    # Pipe stdin to the subprocess; if we are validating an HTML
+    # file with embedded JavaScript, only pipe content within the
+    # <script>…</script> tags to the subprocess.
+    in_script = os.environ['TM_SCOPE'].startswith('source.js')
+    start_tag = re.compile('\<\s*script[\s\>]', re.IGNORECASE)
+    end_tag = re.compile('\<\/\s*script\s*\>', re.IGNORECASE)
+    for line in sys.stdin:
+        while line:
+            if not in_script:
+                # look for the next <script> tag
+                if start_tag.search(line):
+                    # found a script tag; discard until first '>'
+                    pos = line.find('>')
+                    if pos != -1:
+                        # start validating right after the <script> tag
+                        line = line[pos + 1:]
+                        in_script = True
+                else:
+                    # discard remainder of line
+                    line = None
+
+            if in_script:
+                # stop if we hit '</script>'
+                match = end_tag.search(line)
+                if match:
+                    jshint.stdin.write(line[:match.start()])
+                    line = line[match.end():]
+                    in_script = False
+                else:
+                    jshint.stdin.write(line)
+                    line = None
+            else:
+                jshint.stdin.write('\n')
+
+    jshint.stdin.close()
 
     # parse the results
     tree = ET.parse(jshint.stdout)
@@ -156,10 +193,11 @@ def validate(quiet=False):
     issues = []
 
     if len(root):
+        input_start_line = int(os.environ['TM_INPUT_START_LINE']) - 1
         file_element = root[0]
         for issue in file_element.findall('issue'):
             new_issue = {
-                'line': int(issue.attrib['line']),
+                'line': input_start_line + int(issue.attrib['line']),
                 'char': int(issue.attrib['char']),
                 'reason': issue.attrib['reason'],
                 'severity': issue.attrib['severity']
