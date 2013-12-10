@@ -129,8 +129,15 @@ def validate(quiet=False):
         except ValueError:
             jshintrc_valid = False
 
+    # path to our custom jshint reporter
+    reporter_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+        'reporter.js')
+
     # run jshint
-    args = [os.environ.get('TM_JSHINT', 'jshint'), '--reporter=jslint']
+    args = [
+        os.environ.get('TM_JSHINT', 'jshint'),
+        '--reporter="' + reporter_path + '"'
+    ]
     if jshintrc and jshintrc_valid:
         args.append('--config="%s"' % jshintrc)
     args.append('-')
@@ -184,34 +191,25 @@ def validate(quiet=False):
     jshint.stdin.close()
 
     # parse the results
-    tree = ET.parse(jshint.stdout)
-    root = tree.getroot()
-    if root.tag != 'jslint':
+    try:
+        issues = json.load(jshint.stdout)
+    except ValueError:
         print('could not parse data returned from jshint')
         sys.exit(1)
 
-    issues = []
-
-    if len(root):
-        input_start_line = int(os.environ['TM_INPUT_START_LINE']) - 1
-        file_element = root[0]
-        for issue in file_element.findall('issue'):
-            new_issue = {
-                'line': input_start_line + int(issue.attrib['line']),
-                'char': int(issue.attrib['char']),
-                'reason': issue.attrib['reason'],
-                'severity': issue.attrib['severity']
-            }
-            issues.append(new_issue)
+    # normalize line numbers
+    input_start_line = int(os.environ['TM_INPUT_START_LINE']) - 1
+    for issue in issues:
+        issue['line'] += input_start_line
 
     # add URLs to the issues
     if 'TM_FILEPATH' in os.environ:
         url_maker = lambda x: \
             'txmt://open?url=file://%s&amp;line=%d&amp;column=%d' % \
-            (os.environ['TM_FILEPATH'], x['line'], x['char'])
+            (os.environ['TM_FILEPATH'], x['line'], x['character'])
     else:
         url_maker = lambda x: \
-            'txmt://open?line=%d&amp;column=%d' % (x['line'], x['char'])
+            'txmt://open?line=%d&amp;column=%d' % (x['line'], x['character'])
 
     for issue in issues:
         issue['url'] = url_maker(issue)
@@ -233,9 +231,9 @@ def validate(quiet=False):
         context['targetFilename'] = '(current unsaved file)'
 
     context['errorCount'] = \
-        len([_ for _ in context['issues'] if _['severity'] == 'E'])
+        len([_ for _ in context['issues'] if _['code'][0] == 'E'])
     context['warningCount'] = \
-        len([_ for _ in context['issues'] if _['severity'] == 'W'])
+        len([_ for _ in context['issues'] if _['code'][0] == 'W'])
 
     # bail out if there are no errors or warnings, and quiet is True
     if quiet:

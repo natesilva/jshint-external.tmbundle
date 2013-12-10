@@ -60,15 +60,17 @@
                 var issue = issues[index];
         %>
             <li class="list-group-item">
-                <% if (issue.severity === 'E') { %>
+                <% if (issue.code[0] === 'E') { %>
                     <span class="symbol">&#10060;</span>
-                <% } else if (issue.severity === 'W') { %>
+                <% } else if (issue.code[0] === 'W') { %>
                     <span class="symbol">&#9888;</span>
-                <% } else if (issue.severity === 'I') { %>
+                <% } else if (issue.code[0] === 'I') { %>
                     <span class="symbol">&#8505;</span>
                 <% } %>
-                <a href="<%= issue.url %>">at line <%= issue.line %> position <%= issue.char %></a>
-                <div><tt><%= issue.reason %></tt></div>
+                <a href="<%= issue.url %>">at line <%= issue.line %> position <%= issue.character %></a>
+                <div><tt>
+                    <%= issue.reason %> (<span class="issue-code"><%= issue.code %></span>)
+                </tt></div>
             </li>
         <% } %>
     </ul>
