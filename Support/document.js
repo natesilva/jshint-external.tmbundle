@@ -1,7 +1,16 @@
-/* global Zepto, document, EJS, context, ejsTemplate, TextMate, error_explanations */
+/* global Zepto, document, EJS, context, ejsTemplate, TextMate */
+/* global error_explanations */
 
 Zepto(document).ready(function($) {
-  // (try to) close the report window when the user presses ESCape
+  // Remove the marker flag indicating that the validation window
+  // for this document is showing.
+  $(document).on('visibilitychange', function() {
+    if (document.hidden && ('markerFile' in context) && context.markerFile) {
+      TextMate.system('/bin/rm "' + context.markerFile + '"');
+    }
+  });
+
+  // close the report window when the user presses ESCape
   $(document).keydown(function(e) {
     if (e.keyCode === 27) {
       e.preventDefault();
