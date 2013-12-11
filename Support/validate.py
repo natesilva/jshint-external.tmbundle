@@ -181,7 +181,7 @@ def validate(quiet=False):
 
     # run jshint
     args = [
-        os.environ.get('TM_JSHINT', 'jshint'),
+        os.environ.get('TM_JSHINT_EXTERNAL_JSHINT', 'jshint'),
         '--reporter="' + reporter_path + '"'
     ]
     if jshintrc and jshintrc_valid:

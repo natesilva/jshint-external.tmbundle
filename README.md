@@ -37,7 +37,7 @@ Release notes are found in the [Releases](https://github.com/natesilva/jshint-ex
 
 In most cases no configuration is required. However, in some cases you may want to customize the following:
 
-* **Use `jshint` that is not on your `PATH`:** If `jshint` is not on your `PATH`, set the `TM_JSHINT` variable to point to it. Set in *TextMate* > *Preferences…* > *Variables*.
+* **Use `jshint` that is not on your `PATH`:** If `jshint` is not on your `PATH`, set the `TM_JSHINT_EXTERNAL_JSHINT` variable to point to it. Set in *TextMate* > *Preferences…* > *Variables*.
 * **Don’t validate on save:** If you don’t want to validate your JavaScript automatically when you press `⌘S`:
     1. Open the Bundle Editor (*Bundles* > *Edit Bundles…*).
     2. Navigate to *JSHint (External)* > *Menu Actions* > *Save & Validate with JSHint*.
