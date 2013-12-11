@@ -192,10 +192,32 @@ def validate(quiet=False):
             stdout=subprocess.PIPE, env=os.environ)
     except OSError as e:
         msg = [
-            'Could not run jshint: %s' % e,
+            'Hi there. This is the “JavaScript JSHint (External)” bundle for ' +
+                'TextMate. I validate your JavaScript code using ' +
+                'JSHint.',
             '',
-            'Ensure jshint is installed and in the PATH, or set TM_JSHINT ' +
-            'to point to it.'
+            'I had the following problem running <code>jshint</code>:',
+            '',
+            '<code>%s</code>' % e,
+            '',
+            'Ensure the <code>jshint</code> command is installed and in the ' +
+                '<code>PATH</code>, or set the environment variable ' +
+                '<code>TM_JSHINT_EXTERNAL_JSHINT</code> to point to it.',
+            '',
+            'See the <a href="https://github.com/natesilva/jshint-external.tmbundle" class="open-external">bundle home page</a> ' +
+                'for installation instructions.'
+            '',
+            '',
+            'If you mistakenly installed this JavaScript validation bundle ' +
+                'and want to disable it, you can do so in TextMate:',
+            '',
+            '<ol>' +
+                '<li>On the TextMate menu, choose ' +
+                '<i>Bundles</i> > <i>Edit Bundles…</i></li>' +
+                '<li>Locate “JavaScript JSHint (External)”</li>' +
+                '<li>Uncheck “Enable this item”</li>' +
+                '<li>Close the Bundle Editor and choose “Save”</li>' +
+            '</ol>'
         ];
         show_error_message('<br>'.join(msg))
         sys.exit()
