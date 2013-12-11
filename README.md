@@ -8,16 +8,16 @@ Integrates the [JSHint](http://www.jshint.com/) JavaScript validator with [TextM
 
 * Validate automatically when you save your file, and on-demand.
 * Intelligently uses `.jshintrc` settings, whether stored in the same directory tree as your source file, in your home directory, or referenced from a `package.json` file.
-* Uses a *separately-installed* copy of `jshint`.
+* Uses a separately-installed copy of `jshint`.
     * Does not include a bundled (possibly outdated) copy of JSHint.
     * Fewer dependency problems.
-* Common error and warning codes include a link to the relevant explanation on [jslinterrors.com](http://jslinterrors.com/).
+* Common error codes include a link to the relevant explanation on [jslinterrors.com](http://jslinterrors.com/).
 
 ![Screenshot 2](https://raw.github.com/natesilva/jshint-external.tmbundle/master/with-errors.png)
 
 ## Install
 
-First, install JSHint if you have not done so already:
+First, install JSHint:
 
 1. Install [Node.js](https://nodejs.org/).
 2. `[sudo] npm install -g jshint`
@@ -31,10 +31,10 @@ Now install the bundle:
 
 ## Configuration
 
-In most cases no configuration is required. However, in some cases you may wish to customize the following:
+In most cases no configuration is required. However, in some cases you may want to customize the following:
 
 * **Use `jshint` that is not on your `PATH`:** If `jshint` is not on your `PATH`, set the `TM_JSHINT` variable to point to it. Set in *TextMate* > *Preferences…* > *Variables*.
-* **Don’t validate on save:** If you don’t want to validate your JavaScript automatically whenever you press `⌘S`:
+* **Don’t validate on save:** If you don’t want to validate your JavaScript automatically when you press `⌘S`:
     1. Open the Bundle Editor (*Bundles* > *Edit Bundles…*).
     2. Navigate to *JSHint (External)* > *Menu Actions* > *Save & Validate with JSHint*.
     3. In the drawer that appears, delete the “Key Equivalent” of `⌘S`.
