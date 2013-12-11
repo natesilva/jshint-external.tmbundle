@@ -9,7 +9,7 @@
 	<key>description</key>
 	<string>Run JSHint on demand and when a JavaScript file is saved.</string>
 	<key>name</key>
-	<string>JSHint (External)</string>
+	<string>JavaScript JSHint (External)</string>
 	<key>uuid</key>
 	<string>55811194-29A0-4B30-947C-C7A691895273</string>
 </dict>

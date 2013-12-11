@@ -48,5 +48,5 @@ In most cases no configuration is required. However, in some cases you may want 
 2. Open `~/Library/Application Support/Avian/Pristine Copy/Bundles`.
 3. Trash `jshint-external.tmbundle`.
 4. Open `~/Library/Application Support/Avian/Bundles`.
-5. If there is a file called `JSHint (External).tmbundle`, trash it.
+5. If there is a file called `JavaScript JSHint (External).tmbundle`, trash it.
 6. You may need to clear TextMate’s cache by trashing `~/Library/Caches/com.macromates.TextMate.preview`.
