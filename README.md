@@ -17,7 +17,7 @@ Integrates the [JSHint](http://www.jshint.com/) JavaScript validator with [TextM
 
 ## Install
 
-First, install JSHint:
+First install JSHint:
 
 1. Install [Node.js](https://nodejs.org/).
 2. `[sudo] npm install -g jshint`
