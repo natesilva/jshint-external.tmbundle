@@ -2,7 +2,7 @@
 
 Integrates the [JSHint](http://www.jshint.com/) JavaScript validator with [TextMate 2](https://github.com/textmate/textmate).
 
-![Screenshot](https://raw.github.com/natesilva/jshint-external.tmbundle/master/screenshot.png)
+![Screenshot 1](https://raw.github.com/natesilva/jshint-external.tmbundle/master/no-errors.png)
 
 ## Features
 
@@ -11,6 +11,9 @@ Integrates the [JSHint](http://www.jshint.com/) JavaScript validator with [TextM
 * Uses a *separately-installed* copy of `jshint`.
     * Does not include a bundled (possibly outdated) copy of JSHint.
     * Fewer dependency problems.
+* Common error and warning codes include a link to the relevant explanation on [jslinterrors.com](http://jslinterrors.com/).
+
+![Screenshot 2](https://raw.github.com/natesilva/jshint-external.tmbundle/master/with-errors.png)
 
 ## Install
 
