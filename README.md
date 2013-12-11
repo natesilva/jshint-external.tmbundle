@@ -29,6 +29,10 @@ Now install the bundle:
 3. Rename the extracted folder to `jshint-external.tmbundle`.
 4. Double-click to install it in TextMate.
 
+## Release Notes
+
+Release notes are found in the [Releases](https://github.com/natesilva/jshint-external.tmbundle/releases) section of this GitHub repo.
+
 ## Configuration
 
 In most cases no configuration is required. However, in some cases you may want to customize the following:
