@@ -184,11 +184,11 @@ def validate(quiet=False):
         os.environ.get('TM_JSHINT_EXTERNAL_JSHINT', 'jshint'),
         '--reporter="' + reporter_path + '"'
     ]
-    
+
     if jshintrc and jshintrc_valid:
         args.append('--config="%s"' % jshintrc)
     args.append('-')
-    
+
     # Build env for our command: JSHint (and Node) are often
     # installed to /usr/local/bin, which may not be on the
     # bundle’s PATH in a default install of TextMate.
@@ -201,30 +201,36 @@ def validate(quiet=False):
     if '/usr/local/bin' not in path_parts:
         path_parts.append('/usr/local/bin')
     env['PATH'] = ':'.join(path_parts)
-    
+
     try:
         jshint = subprocess.Popen(args, stdin=subprocess.PIPE,
             stdout=subprocess.PIPE, env=env)
     except OSError as e:
         msg = [
             'Hi there. This is the “JavaScript JSHint (External)” bundle for ' +
-                'TextMate. I validate your JavaScript code using ' +
-                'JSHint.',
+                'TextMate. I validate your code using JSHint.',
             '',
             'I had the following problem running <code>jshint</code>:',
             '',
             '<code>%s</code>' % e,
             '',
-            'Ensure the <code>jshint</code> command is installed and in the ' +
-                '<code>PATH</code>, or set the environment variable ' +
-                '<code>TM_JSHINT_EXTERNAL_JSHINT</code> to point to it.',
+            '<h4>How to fix it</h4>',
+            'Make sure the <code>jshint</code> and <code>node</code> ' +
+                'commands are on the <code>PATH</code>.',
             '',
-            'See the <a href="https://github.com/natesilva/jshint-external.tmbundle" class="open-external">bundle home page</a> ' +
-                'for installation instructions.'
+            '<ol>' +
+                '<li>Go to <i>TextMate</i> > <i>Preferences…</i> > ' +
+                    '<i>Variables</i></li>' +
+                '<li>Ensure the <code>PATH</code> is enabled there and that ' +
+                    'it includes the location of your <code>jshint</code> ' +
+                    'and <code>node</code> commands.</li>'
+            '</ol>',
+            'The path currently used by TextMate bundles is:',
             '',
-            '',
-            'If you mistakenly installed this JavaScript validation bundle ' +
-                'and want to disable it, you can do so in TextMate:',
+            '<div style="overflow:auto"><code>%s</code></div>' % env['PATH'],
+            '<h4>How to disable validation</h4>',
+            'If you mistakenly installed this validation tool and want to ' +
+                'disable it, you can do so in TextMate:',
             '',
             '<ol>' +
                 '<li>On the TextMate menu, choose ' +
@@ -233,7 +239,7 @@ def validate(quiet=False):
                 '<li>Uncheck “Enable this item”</li>' +
                 '<li>Close the Bundle Editor and choose “Save”</li>' +
             '</ol>'
-        ];
+        ]
         show_error_message('<br>'.join(msg))
         sys.exit()
 
