@@ -179,17 +179,32 @@ def validate(quiet=False):
     reporter_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
         'reporter.js')
 
-    # run jshint
+    # build jshint args
     args = [
         os.environ.get('TM_JSHINT_EXTERNAL_JSHINT', 'jshint'),
         '--reporter="' + reporter_path + '"'
     ]
+    
     if jshintrc and jshintrc_valid:
         args.append('--config="%s"' % jshintrc)
     args.append('-')
+    
+    # Build env for our command: JSHint (and Node) are often
+    # installed to /usr/local/bin, which may not be on the
+    # bundle’s PATH in a default install of TextMate.
+    env = os.environ.copy()
+    path_parts = env['PATH'].split(':')
+    if '/bin' not in path_parts:
+        path_parts.append('/bin')
+    if '/usr/bin' not in path_parts:
+        path_parts.append('/usr/bin')
+    if '/usr/local/bin' not in path_parts:
+        path_parts.append('/usr/local/bin')
+    env['PATH'] = ':'.join(path_parts)
+    
     try:
         jshint = subprocess.Popen(args, stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE, env=os.environ)
+            stdout=subprocess.PIPE, env=env)
     except OSError as e:
         msg = [
             'Hi there. This is the “JavaScript JSHint (External)” bundle for ' +
