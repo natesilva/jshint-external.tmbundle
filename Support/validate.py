@@ -246,36 +246,44 @@ def validate(quiet=False):
     # Pipe stdin to the subprocess; if we are validating an HTML
     # file with embedded JavaScript, only pipe content within the
     # <script>…</script> tags to the subprocess.
-    in_script = os.environ['TM_SCOPE'].startswith('source.js')
-    start_tag = re.compile('\<\s*script[\s\>]', re.IGNORECASE)
-    end_tag = re.compile('\<\/\s*script\s*\>', re.IGNORECASE)
-    for line in sys.stdin:
-        while line:
-            if not in_script:
-                # look for the next <script> tag
-                if start_tag.search(line):
-                    # found a script tag; discard until first '>'
-                    pos = line.find('>')
-                    if pos != -1:
-                        # start validating right after the <script> tag
-                        line = line[pos + 1:]
-                        in_script = True
-                else:
-                    # discard remainder of line
-                    line = None
+    if os.environ['TM_SCOPE'].startswith('source.js'):
+        for line in sys.stdin:
+            jshint.stdin.write(line)
+    else:
+        start_tag = re.compile('(\<\s*script)[\s\>]', re.IGNORECASE)
+        end_tag = re.compile('\<\/\s*script[\s\>]', re.IGNORECASE)
+        state = 'IGNORE'
+        for line in sys.stdin:
+            while line:
+                if state == 'IGNORE':
+                    match = start_tag.search(line)
+                    if match:
+                        # found a script tag
+                        line = ' ' * match.end(1) + line[match.end(1):]
+                        state = 'LOOK_FOR_END_OF_OPENING_TAG'
+                    else:
+                        jshint.stdin.write('\n')
+                        line = None
 
-            if in_script:
-                # stop if we hit '</script>'
-                match = end_tag.search(line)
-                if match:
-                    jshint.stdin.write(line[:match.start()])
-                    line = line[match.end():]
-                    in_script = False
-                else:
-                    jshint.stdin.write(line)
-                    line = None
-            else:
-                jshint.stdin.write('\n')
+                elif state == 'LOOK_FOR_END_OF_OPENING_TAG':
+                    gt_pos = line.find('>')
+                    if gt_pos != -1:
+                        line = ' ' * (gt_pos + 1) + line[gt_pos + 1:]
+                        state = 'PIPE_TO_OUTPUT'
+                    else:
+                        jshint.stdin.write('\n')
+                        line = None
+
+                elif state == 'PIPE_TO_OUTPUT':
+                    match = end_tag.search(line)
+                    if match:
+                        # found closing </script> tag
+                        jshint.stdin.write(line[:match.start()])
+                        line = line[match.end():]
+                        state = 'IGNORE'
+                    else:
+                        jshint.stdin.write(line)
+                        line = None
 
     jshint.stdin.close()
 
