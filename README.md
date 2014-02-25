@@ -1,6 +1,6 @@
 # jshint-external TextMate Bundle
 
-Integrates the [JSHint](http://www.jshint.com/) JavaScript validator with [TextMate 2](https://github.com/textmate/textmate).
+The best way to run the [JSHint](http://www.jshint.com/) JavaScript validator in [TextMate 2](https://github.com/textmate/textmate).
 
 ![Screenshot 1](https://raw.github.com/natesilva/jshint-external.tmbundle/master/no-errors.png)
 
