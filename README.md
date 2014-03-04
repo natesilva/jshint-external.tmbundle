@@ -1,6 +1,6 @@
 # jshint-external TextMate Bundle
 
-The best way to run the [JSHint](http://www.jshint.com/) JavaScript validator in [TextMate 2](https://github.com/textmate/textmate).
+The best way to run the [JSHint](http://www.jshint.com/) JavaScript validator in [TextMate 2](https://github.com/textmate/textmate). (Want to use ESLint instead? Try the [javascript-eslint.tmbundle](https://github.com/natesilva/javascript-eslint.tmbundle).)
 
 ![Screenshot 1](https://raw.github.com/natesilva/jshint-external.tmbundle/master/no-errors.png)
 
