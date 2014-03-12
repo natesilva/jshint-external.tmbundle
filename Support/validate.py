@@ -20,6 +20,7 @@ import subprocess
 import tempfile
 import hashlib
 import shutil
+from minify_json import json_minify
 
 
 def find_up_the_tree(dir_name, filename, max_depth=30):
@@ -73,7 +74,7 @@ def find_jshintrc(start_dir):
         if pj:
             # does it have a jsonHintConfig setting?
             try:
-                pkg = json.load(open(pj, 'r'))
+                pkg = json.loads(json_minify(open(pj, 'r').read()))
                 if 'jsonHintConfig' in pkg:
                     # does it point to a file that exists?
                     pj_dir = os.path.dirname(pj)
@@ -170,7 +171,7 @@ def validate(quiet=False):
     jshintrc_valid = False
     if jshintrc:
         try:
-            json.load(open(jshintrc, 'r'))
+            json.loads(json_minify(open(jshintrc, 'r').read()))
             jshintrc_valid = True
         except ValueError:
             jshintrc_valid = False
@@ -289,7 +290,7 @@ def validate(quiet=False):
 
     # parse the results
     try:
-        issues = json.load(jshint.stdout)
+        issues = json.loads(json_minify(jshint.stdout.read()))
     except ValueError:
         print('could not parse data returned from jshint')
         sys.exit(1)
