@@ -17,7 +17,7 @@ The best way to run the [JSHint](http://www.jshint.com/) JavaScript validator in
 
 ## Install
 
-First install JSHint:
+If you don’t have JSHint, install it:
 
 1. Install [Node.js](http://nodejs.org/).
 2. `[sudo] npm install -g jshint`
@@ -25,9 +25,7 @@ First install JSHint:
 Now install the bundle:
 
 1. [Download the latest release .zip file](https://github.com/natesilva/jshint-external.tmbundle/releases/latest).
-2. Extract it.
-3. Rename the extracted folder to `jshint-external.tmbundle`.
-4. Double-click to install it in TextMate.
+2. Extract it and double-click to install.
 
 ## Release Notes
 
