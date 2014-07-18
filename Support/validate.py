@@ -121,50 +121,6 @@ def show_error_message(message):
     print(template)
 
 
-def get_marker_directory():
-    """
-    Create the directory that will hold "marker" files that we use
-    to detect which files have a validation window open. Used to
-    implement the following feature:
-
-    Normally, when you hit Cmd-S, the validation window appears
-    only if there is a warning or error.
-
-    Assume you had previously validated a file, and the validation
-    window showing its errors is still open. Now you fix the
-    errors and press Cmd-S. We want that validation window to
-    update to show no errors.
-
-    In order to do this, we have to somehow detect if TextMate has
-    a validation window open for the current file. It’s not easy.
-    We use marker files.
-
-    This script creates a marker file before returning the HTML
-    document that will be shown in the validation window.
-
-    When the HTML document detects that it is being hidden (closed),
-    it runs a TextMate.system command to delete its marker file.
-    """
-    baseDir = os.path.join(tempfile.gettempdir(), 'jshint-external-tmbundle')
-    if not os.path.isdir(baseDir):
-        os.makedirs(baseDir)
-
-    today = time.strftime('%Y-%m-%d')
-    markerDir = os.path.join(baseDir, today)
-    if not os.path.isdir(markerDir):
-        os.makedirs(markerDir)
-
-    # Deletion should happen automatically, but to be clean(er),
-    # delete any previous-day marker dirs.
-    children = os.listdir(baseDir)
-    children = [_ for _ in children if _ != today]
-    children = [os.path.join(baseDir, _) for _ in children]
-    children = [_ for _ in children if os.path.isdir(_)]
-    [shutil.rmtree(_, True) for _ in children]
-
-    return markerDir
-
-
 def validate(quiet=False):
     # locate the .jshintrc to use
     jshintrc = find_jshintrc(os.environ.get('TM_DIRECTORY', None))
@@ -328,32 +284,14 @@ def validate(quiet=False):
         context['fileUrl'] = 'txmt://open?line=1&amp;column=0'
         context['targetFilename'] = '(current unsaved file)'
 
-    # Identify the marker file that we will use to indicate the
-    # TM_FILEPATH of the file currently shown in the validation
-    # window.
-    markerDir = get_marker_directory()
-    hash = hashlib.sha224(context['fileUrl']).hexdigest()
-    context['markerFile'] = os.path.join(markerDir, hash + '.marker')
-
     context['errorCount'] = \
         len([_ for _ in context['issues'] if _['code'][0] == 'E'])
     context['warningCount'] = \
         len([_ for _ in context['issues'] if _['code'][0] == 'W'])
 
     if context['errorCount'] == 0 and context['warningCount'] == 0:
-        # There are no errors or warnings. We can bail out if all of
-        # the following are True:
-        #
-        #     * There is no validation window currently open for
-        #       this document.
-        #     * quiet is True.
-        if not os.path.exists(context['markerFile']):
-            if quiet:
-                return
-
-    # create the marker file
-    markerFile = open(context['markerFile'], 'w+')
-    markerFile.close()
+        if quiet:
+            return
 
     # read and prepare the template
     my_dir = os.path.abspath(os.path.dirname(__file__))
