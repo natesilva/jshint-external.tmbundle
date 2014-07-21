@@ -31,8 +31,6 @@ fi
 	<string>html</string>
 	<key>outputLocation</key>
 	<string>newWindow</string>
-	<key>reuseOutput</key>
-	<string>reuseBusy</string>
 	<key>scope</key>
 	<string>source.js</string>
 	<key>uuid</key>

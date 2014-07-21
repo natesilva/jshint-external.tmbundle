@@ -17,6 +17,8 @@ import re
 import time
 import json
 import subprocess
+import tempfile
+import hashlib
 from minify_json import json_minify
 
 
