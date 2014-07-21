@@ -5,56 +5,49 @@
 <% } %>
     <div class="panel-heading">
         <h4>
-        Validation report for <a href="<%= fileUrl %>"><tt><b><%= targetFilename %></b></tt></a>
-        <div class="small"><%= timestamp %></div>
+            <div class="pull-right small">
+                <% if (errorCount) { %>
+                    <% if (errorCount === 1) { %>
+                        <span class="label label-danger">1 error</span>
+                    <% } else { %>
+                        <span class="label label-danger"><%= errorCount %> errors</span>
+                    <% } %>
+                <% } %>
+
+                <% if (warningCount) { %>
+                    <% if (warningCount === 1) { %>
+                        <span class="label label-warning">1 warning</span>
+                    <% } else { %>
+                        <span class="label label-warning"><%= warningCount %> warnings</span>
+                    <% } %>
+                <% } %>
+
+                <% if (!errorCount && !warningCount) { %>
+                    <span class="label label-success">
+                        No errors or warnings
+                    </span>
+                <% } %>
+            </div>
+            Validation report for <a href="<%= fileUrl %>"><tt><b><%= targetFilename %></b></tt></a>
+            <% if (jshintrcValid) { %>
+                <div class="small">Used settings from
+                    <a href="txmt://open?url=file://<%= jshintrc %>"><tt><%= jshintrc %></tt></a>
+                </div>
+            <% } else if (jshintrc && !jshintrcValid) { %>
+                <div class="small text-danger">Used generic default settings because
+                    <a href="txmt://open?url=file://<%= jshintrc %>"><tt><%= jshintrc %></tt></a>
+                    was not valid JSON.
+                </div>
+            <% } else { %>
+                <div class="small">No .jshintrc found. Used default settings.</div>
+                <div class="small">See
+                    <a href="http://www.jshint.com/docs/">http://www.jshint.com/docs/</a>
+                    for .jshintrc customization instructions.
+                </div>
+            <% } %>
         </h4>
     </div>
-    <div class="panel-body">
-        <% if (jshintrcValid) { %>
-            <p class="small">Used settings from
-                <a href="txmt://open?url=file://<%= jshintrc %>"><tt><%= jshintrc %></tt></a>
-            </p>
-        <% } else if (jshintrc && !jshintrcValid) { %>
-            <p class="small text-danger">Used generic default settings because
-                <a href="txmt://open?url=file://<%= jshintrc %>"><tt><%= jshintrc %></tt></a>
-                was not valid JSON.
-            </p>
-        <% } else { %>
-            <p class="small">No .jshintrc found. Used default settings.</p>
-            <p class="small">See
-                <a href="http://www.jshint.com/docs/">http://www.jshint.com/docs/</a>
-                for .jshintrc customization instructions.
-            </p>
-        <% } %>
-        <% if (errorCount) { %>
-            <% if (errorCount === 1) { %>
-                <span class="label label-danger">1 error</span>
-            <% } else { %>
-                <span class="label label-danger"><%= errorCount %> errors</span>
-            <% } %>
-        <% } %>
-
-        <% if (warningCount) { %>
-            <% if (warningCount === 1) { %>
-                <span class="label label-warning">1 warning</span>
-            <% } else { %>
-                <span class="label label-warning"><%= warningCount %> warnings</span>
-            <% } %>
-        <% } %>
-
-        <% if (!errorCount && !warningCount) { %>
-            <span class="label label-success">No errors or warnings</span>
-        <% } %>
-    </div>
-
     <ul class="list-group">
-        <% if (!errorCount && !warningCount) { %>
-            <li class="list-group-item">
-                <span class="symbol">&#9989;</span>
-                Looks good!
-            </li>
-        <% } %>
-
         <%
             for (var index = 0, len = issues.length; index !== len; ++index) {
                 var issue = issues[index];
@@ -67,10 +60,10 @@
                 <% } else if (issue.code[0] === 'I') { %>
                     <span class="symbol">&#8505;</span>
                 <% } %>
-                <a href="<%= issue.url %>">at line <%= issue.line %> position <%= issue.character %></a>
-                <div><tt>
+                <a href="<%= issue.url %>">at line <%= issue.line %> position <%= issue.character %>:</a>&nbsp;
+                <tt class="report">
                     <%= issue.reason %> (<span class="issue-code"><%= issue.code %></span>)
-                </tt></div>
+                </tt>
             </li>
         <% } %>
     </ul>
