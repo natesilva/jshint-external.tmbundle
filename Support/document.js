@@ -2,6 +2,8 @@
 /* global error_explanations */
 
 Zepto(document).ready(function($) {
+  var VERSION = '1.0.9';
+
   // close the report window when the user presses ESCape
   $(document).keydown(function(e) {
     if (e.keyCode === 27) {
@@ -36,5 +38,43 @@ Zepto(document).ready(function($) {
       return;
     }
     TextMate.system('open "' + encodeURI(href) + '"', null);
+  });
+
+  $('.version-number').text('v' + VERSION);
+
+  // parse a version number into semver parts
+  var parseVersion = function(ver) {
+    return ver.split('.').map(function(part) { return parseInt(part, 10); });
+  };
+
+  // return true if target is newer than current
+  var newer = function(current, target) {
+    var currentParts = parseVersion(current);
+    var targetParts = parseVersion(target);
+    if (currentParts.length !== 3 || targetParts.length !== 3) { return false; }
+
+    if (targetParts[0] > currentParts[0]) { return true; }
+    if (targetParts[0] < currentParts[0]) { return false; }
+
+    if (targetParts[1] > currentParts[1]) { return true; }
+    if (targetParts[1] < currentParts[1]) { return false; }
+
+    if (targetParts[2] > currentParts[2]) { return true; }
+    if (targetParts[2] < currentParts[2]) { return false; }
+
+    return false;
+  };
+
+  $('.update-checker').on('click', function(e) {
+    $.getJSON('http://natesilva.github.io/jshint-external.tmbundle/latest.json',
+      function(data)
+    {
+      $('.update-checker').addClass('hidden');
+      if (newer(VERSION, data.latest)) {
+        $('.update-available').removeClass('hidden');
+      } else {
+        $('.no-update').removeClass('hidden');
+      }
+    });
   });
 });
