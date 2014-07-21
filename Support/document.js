@@ -2,7 +2,7 @@
 /* global error_explanations */
 
 Zepto(document).ready(function($) {
-  var VERSION = '1.0.9';
+  var VERSION = '1.1.0';
 
   // close the report window when the user presses ESCape
   $(document).keydown(function(e) {
