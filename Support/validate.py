@@ -6,7 +6,7 @@ Validate a JavaScript file using jshint. Uses an EXTERNAL,
 user-installed copy of jshint, rather than an embedded copy.
 
 Author: Nate Silva
-Copyright 2013 Nate Silva
+Copyright 2013, 2014 Nate Silva
 License: MIT
 """
 
