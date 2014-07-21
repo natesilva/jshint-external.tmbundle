@@ -24,12 +24,12 @@ If you don’t have JSHint, install it:
 
 Now install the bundle:
 
-1. [Download the latest release .zip file](https://github.com/natesilva/jshint-external.tmbundle/releases/latest).
+1. [Download the latest release .zip file](https://github.com/natesilva/jshint-external.tmbundle/zipball/master).
 2. Extract it and double-click to install.
 
 ## Release Notes
 
-Release notes are found in the [Releases](https://github.com/natesilva/jshint-external.tmbundle/releases) section of this GitHub repo.
+View the [release notes](https://github.com/natesilva/jshint-external.tmbundle/releases).
 
 ## Configuration
 
