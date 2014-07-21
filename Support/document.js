@@ -2,7 +2,7 @@
 /* global error_explanations */
 
 Zepto(document).ready(function($) {
-  var VERSION = '1.1.0';
+  var VERSION = '1.1.1';
 
   // Remove the marker flag indicating that the validation window
   // for this document is showing.
