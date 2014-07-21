@@ -33,82 +33,11 @@
 
 <p><small>Want to use ESLint instead? Try the <a href="https://github.com/natesilva/javascript-eslint.tmbundle">javascript-eslint.tmbundle</a>.</small></p>
 
-<p style="text-align:center;"><img src="images/no-errors.png" alt="Screenshot 1" style="width:457px;"></p>
+<p style="text-align:center;"><img src="images/no-errors.png" alt="Screenshot 1" style="width:560px;"></p>
 
 <h2>
-<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
-
-<ul>
-<li>Validate automatically when you save your file, and on-demand.</li>
-<li>Intelligently uses <code>.jshintrc</code> settings, whether stored in the same directory tree as your source file, in your home directory, or referenced from a <code>package.json</code> file.</li>
-<li>Uses a separately-installed copy of <code>jshint</code>.
-
-<ul>
-<li>Does not include a bundled (possibly outdated) copy of JSHint.</li>
-<li>Fewer dependency problems.</li>
-</ul>
-</li>
-<li>Common error codes include a link to the relevant explanation on <a href="http://jslinterrors.com/">jslinterrors.com</a>.</li>
-</ul><p style="text-align:center;"><img src="images/with-errors.png" alt="Screenshot 2" style="width:457px;"></p>
-
-<h2>
-<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
-
-<p>If you don’t have JSHint, install it:</p>
-
-<ol>
-<li>Install <a href="http://nodejs.org/">Node.js</a>.</li>
-<li><code>[sudo] npm install -g jshint</code></li>
-</ol><p>Now install the bundle:</p>
-
-<ol>
-<li>
-<a href="https://github.com/natesilva/jshint-external.tmbundle/releases/latest">Download the latest release .zip file</a>.</li>
-<li>Extract it and double-click to install.</li>
-</ol><h2>
-<a name="release-notes" class="anchor" href="#release-notes"><span class="octicon octicon-link"></span></a>Release Notes</h2>
-
-<p>View the <a href="https://github.com/natesilva/jshint-external.tmbundle/releases">release notes</a>.</p>
-
-<h2>
-<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
-
-<p>In most cases no configuration is required. However, in some cases you may want to customize the following:</p>
-
-<ul>
-<li>
-<strong>Use <code>jshint</code> that is not on your <code>PATH</code>:</strong> If <code>jshint</code> is not on your <code>PATH</code>, set the <code>TM_JSHINT_EXTERNAL_JSHINT</code> variable to point to it. Set in <em>TextMate</em> &gt; <em>Preferences…</em> &gt; <em>Variables</em>.</li>
-<li>
-<strong>Don’t validate on save:</strong> If you don’t want to validate your JavaScript automatically when you press <code>⌘S</code>:
-
-<ol>
-<li>Open the Bundle Editor (<em>Bundles</em> &gt; <em>Edit Bundles…</em>).</li>
-<li>Navigate to <em>JSHint (External)</em> &gt; <em>Menu Actions</em> &gt; <em>Save &amp; Validate with JSHint</em>.</li>
-<li>In the drawer that appears, delete the “Key Equivalent” of <code>⌘S</code>.</li>
-</ol>
-</li>
-<li>
-<strong>Use a project-specific JSHint configuration:</strong>
-
-<ul>
-<li>
-<strong>For Node.js:</strong> Add a key called <code>jsonHintConfig</code> to the <code>package.json</code> file. This key should contain the filename of your JSHint configuration file (<a href="http://www.jshint.com/docs/">JSHint config syntax</a>).</li>
-<li>
-<strong>For any JavaScript project:</strong> Create a <code>.jshintrc</code> file (<a href="http://www.jshint.com/docs/">syntax</a>). Place it in your source directory or any directory above it.</li>
-</ul>
-</li>
-</ul><h2>
-<a name="uninstall" class="anchor" href="#uninstall"><span class="octicon octicon-link"></span></a>Uninstall</h2>
-
-<ol>
-<li>Quit TextMate.</li>
-<li>Open <code>~/Library/Application Support/Avian/Pristine Copy/Bundles</code>.</li>
-<li>Trash <code>jshint-external.tmbundle</code>.</li>
-<li>Open <code>~/Library/Application Support/Avian/Bundles</code>.</li>
-<li>If there is a file called <code>JavaScript JSHint (External).tmbundle</code>, trash it.</li>
-<li>You may need to clear TextMate’s cache by trashing <code>~/Library/Caches/com.macromates.TextMate.preview</code>.</li>
-</ol>
-      </section>
+<a href="https://github.com/natesilva/jshint-external.tmbundle">View it on Github</a>
+</h2>
     </div>
     <footer>
       <p>Project maintained by <a href="https://github.com/natesilva">natesilva</a></p>
