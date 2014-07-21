@@ -26,7 +26,7 @@ If you don’t have JSHint, install it:
 
 Now install the bundle:
 
-1. [Download the latest release .zip file](https://github.com/natesilva/jshint-external.tmbundle/zipball/master).
+1. [Download the latest release .zip file](https://github.com/natesilva/jshint-external.tmbundle/releases/latest).
 2. Extract it and double-click to install.
 
 ## Release Notes
