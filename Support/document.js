@@ -1,8 +1,18 @@
-/* global Zepto, document, EJS, context, ejsTemplate, TextMate */
+/* global Zepto, document, EJS, context, ejsTemplate, TextMate, window */
 /* global error_explanations */
 
 Zepto(document).ready(function($) {
   var VERSION = '1.1.0';
+
+  // Remove the marker flag indicating that the validation window
+  // for this document is showing.
+  $(document).on('visibilitychange', function() {
+    window.setTimeout(function() {
+      if (document.hidden && ('markerFile' in context) && context.markerFile) {
+        TextMate.system('/bin/rm "' + context.markerFile + '"');
+      }
+    }, 1);
+  });
 
   // close the report window when the user presses ESCape
   $(document).keydown(function(e) {
