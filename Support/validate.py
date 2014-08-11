@@ -19,6 +19,7 @@ import json
 import subprocess
 import tempfile
 import hashlib
+import shutil
 from minify_json import json_minify
 
 
